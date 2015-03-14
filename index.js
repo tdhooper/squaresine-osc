@@ -1,6 +1,6 @@
 
 /**
- * @module squaresine-osc
+ * @module multiwave-osc
  * @license mit
  */
 
@@ -16,10 +16,10 @@ export default Oscillator;
  * @class
  */
 
-function Oscillator(size, alias){
-  if (!(this instanceof Oscillator)) return new Oscillator(size, alias);
-  var steps = 3;
-  var waveCount = 2;
+function Oscillator(wavefunc, size, alias){
+  if (!(this instanceof Oscillator)) return new Oscillator(wavefunc, size, alias);
+  var steps = 2;
+  var waveCount = 1;
   var waveMultiply = Math.pow(steps, 2) * waveCount
   
   this.pos = 0;
@@ -38,16 +38,14 @@ function Oscillator(size, alias){
   }
 
   for (var i = 0; i < this.size; i++) {
-    this.table[i] =
-    Math.sin(
-      i
-      * scale
-      * waveMultiply
-    )
-    /
-    ((periodIndex(i) * 2) + 1)
+    this.table[i] = wavefunc(
+      periodIndex(i),
+      this.size * scale * waveMultiply
+    )(i * scale * waveMultiply);
   }
 }
+
+
 
 
 /**
@@ -70,7 +68,7 @@ Oscillator.prototype.play = function(freq){
 };
 
 
-export var Squaresine = function(size, alias) {
-  var osc = Oscillator(size, alias);
+export var Multiwave = function(wavefunc, size, alias) {
+  var osc = Oscillator(wavefunc, size, alias);
   return osc.play.bind(osc);
 }
