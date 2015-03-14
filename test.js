@@ -6,10 +6,11 @@
 import { Multiwave } from './index';
 
 function squareSine(periodIndex, length) {
-  periodIndex = periodIndex < 6 ? periodIndex : 6 - (periodIndex - 6);
+  var a = 10;
+  periodIndex = periodIndex < a ? periodIndex : a - (periodIndex - a);
   var pow = (periodIndex * 2) + 6;
   
-  // pow = Math.pow(pow, 3);
+  // pow = Math.pow(pow, 2);
   
   return function(x) {
     // return periodIndex / 20;
@@ -27,9 +28,9 @@ function test(periodIndex, length) {
   }
 }
 
-var wave = Multiwave(squareSine);
+var waveA = Multiwave(squareSine);
 
 export function dsp(t){
   // return 0;
-  return wave(0.3) * 16;
+  return waveA(1.7) * 8;
 }

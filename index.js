@@ -18,8 +18,8 @@ export default Oscillator;
 
 function Oscillator(wavefunc, size, alias){
   if (!(this instanceof Oscillator)) return new Oscillator(wavefunc, size, alias);
-  var steps = 12;
-  var waveCount = 4;
+  var steps = 20;
+  var waveCount = 2;
   var waveMultiply = Math.pow(steps, 2) * waveCount
   
   this.pos = 0;
