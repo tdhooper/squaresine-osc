@@ -18,7 +18,7 @@ export default Oscillator;
 
 function Oscillator(wavefunc, size, alias){
   if (!(this instanceof Oscillator)) return new Oscillator(wavefunc, size, alias);
-  var steps = 2;
+  var steps = 1;
   var waveCount = 1;
   var waveMultiply = Math.pow(steps, 2) * waveCount
   
@@ -38,10 +38,14 @@ function Oscillator(wavefunc, size, alias){
   }
 
   for (var i = 0; i < this.size; i++) {
+    var waveLength = this.size / waveCount;
+    var j = (i % waveLength);
     this.table[i] = wavefunc(
       periodIndex(i),
-      this.size * scale * waveMultiply
-    )(i * scale * waveMultiply);
+      waveLength
+    )(
+      j
+    );
   }
 }
 
